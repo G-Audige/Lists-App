@@ -3,33 +3,27 @@ import React from 'react';
 function Main() {
   return (
     <>
-      <h1
-        style={{
-          backgroundColor: 'black',
-          color: 'white',
-          padding: '5px',
-          textAlign: 'center',
-        }}
-      >
-        Lists App
-      </h1>
-      <div style={{ display: 'flex' }}>
-        <a href='/fruits' style={{ textDecoration: 'none', color: 'blue' }}>
-          <div>
-            <h4 style={{ textAlign: 'center' }}>Fruits</h4>
-            <div
-              style={{
-                backgroundImage:
-                  'url("https://t4.ftcdn.net/jpg/02/52/93/81/360_F_252938192_JQQL8VoqyQVwVB98oRnZl83epseTVaHe.jpg")',
-                backgroundSize: 'contain',
-                border: '2px solid gray',
-                borderRadius: '10px',
-                height: '150px',
-                width: '150px',
-              }}
-            ></div>
-          </div>
-        </a>
+      <link type='text/css' href='/css/main.css' rel='stylesheet' />
+      <div className='header'>
+        <div className='top-header'>
+          <a href='/'>Home Page</a>
+          <a href='/list'>
+            List <img src='https://i.imgur.com/Cl0Bvji.png' alt='' />
+          </a>
+        </div>
+        <h1>Shopping Lists App</h1>
+      </div>
+      <div className='content'>
+        <div className='direct'>
+          <a href='/list'>
+            <h2>Go to your list</h2>
+          </a>
+        </div>
+        <img
+          src='https://i.imgur.com/Ik4jUTS.png'
+          alt='list'
+          className='image'
+        />
       </div>
     </>
   );

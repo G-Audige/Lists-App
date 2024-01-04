@@ -1,0 +1,13 @@
+Shopping List App
+
+/
+The main page will introduce the visitor to the shopping list app. Here, the visitor can set a budget and put down notes on what they need.
+
+/List
+This page will introduce visitors to the shopping list, with the ability to sort the list by name, price, or quantity.
+
+/New
+This page will allow visitors to add items to their list.
+
+/View
+This page will allow visitors to view and edit items in their list.

@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const Fruit = require('./models/Fruit.js');
+app.use(express.static('public'));
+app.use(express.static('components'));
+const Item = require('./models/Item.js');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
@@ -20,69 +22,58 @@ mongoose.connection.once('once', () => {
   console.log('Connected to Mongo');
 });
 
-//Main Page
+//
 app.get('/', (req, res) => {
   res.render('Main');
 });
 
-//All Fruits Page
-app.get('/fruits', (req, res) => {
-  Fruit.find({}, (error, allFruits) => {
-    res.render('Fruits', {
-      fruits: allFruits,
+//list
+app.get('/list', (req, res) => {
+  Item.find({}, (err, allItems) => {
+    res.render('List', {
+      items: allItems,
     });
   });
 });
-app.post('/fruits', (req, res) => {
-  if (req.body.edible === 'on') {
-    req.body.edible = true;
-  } else {
-    req.body.edible = false;
-  }
+app.post('/list', (req, res) => {
   console.log(req.body);
-  Fruit.create(req.body, (err, createdFruit) => {
+  Item.create(req.body, (err, ceratedItem) => {
     console.log(err);
-    res.redirect('/fruits');
+    res.redirect('/list');
   });
 });
 
-//New Fruits Page
-app.get('/fruits/new', (req, res) => {
-  res.render('NewFruits');
+//list/new
+app.get('/list/new', (req, res) => {
+  res.render('New');
 });
 
-//Fruit Page
-app.get('/fruits/:id', (req, res) => {
-  Fruit.findById(req.params.id, (err, foundFruit) => {
-    res.render('Fruit', {
-      fruit: foundFruit,
+//list/:id
+app.get('/list/:id', (req, res) => {
+  Item.findById(req.params.id, (err, foundItem) => {
+    res.render('View', {
+      item: foundItem,
     });
   });
 });
-app.delete('/fruits/:id', (req, res) => {
-  Fruit.findByIdAndRemove(req.params.id, (err, data) => {
-    res.redirect('/fruits');
+app.delete('/list/:id', (req, res) => {
+  Item.findByIdAndRemove(req.params.id, (err, data) => {
+    res.redirect('/list');
   });
 });
-app.put('/fruits/:id', (req, res) => {
-  if (req.body.edible === 'on') {
-    req.body.edible = true;
-  } else {
-    req.body.edible = false;
-  }
-  console.log(req.body);
-  Fruit.findByIdAndUpdate(req.params.id, req.body, (err, updatedFruit) => {
-    console.log(updatedFruit);
-    res.redirect(`/fruits`);
+app.put('/list/:id', (req, res) => {
+  Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
+    console.log(updatedItem);
+    res.redirect(`/list/${req.params.id}`);
   });
 });
 
-//Edit Fruits Page
-app.get('/fruits/:id/edit', (req, res) => {
-  Fruit.findById(req.params.id, (err, foundFruit) => {
+//list/:id/edit
+app.get('/list/:id/edit', (req, res) => {
+  Item.findById(req.params.id, (err, foundItem) => {
     if (!err) {
-      res.render('EditFruit', {
-        fruit: foundFruit,
+      res.render('Edit', {
+        item: foundItem,
       });
     } else {
       res.send({ msg: err.message });
