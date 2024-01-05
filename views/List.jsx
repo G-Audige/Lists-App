@@ -14,7 +14,7 @@ function List({ items }) {
         <h1>Shopping Lists App</h1>
       </div>
       <div className='add'>
-        <a href='/list/new'>Add new item</a>
+        <a href='/list/new'>Add new item here</a>
       </div>
       <div className='content'>
         <form action=''></form>
